@@ -44,7 +44,6 @@ function bookstore_admin_enqueue_scripts() {
     );
 }
 
-
 add_action( 'admin_menu', 'bookstore_add_booklist_submenu', 11 );
 function bookstore_add_booklist_submenu() {
     add_submenu_page(
