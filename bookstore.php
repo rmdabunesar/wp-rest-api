@@ -12,26 +12,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'init', 'bookstore_register_book_post_type' );
 function bookstore_register_book_post_type() {
-	$args = array(
-		'labels'       => array(
-			'name'          => 'Books',
-			'singular_name' => 'Book',
-			'menu_name'     => 'Books',
-			'add_new'       => 'Add New Book',
-			'add_new_item'  => 'Add New Book',
-			'new_item'      => 'New Book',
-			'edit_item'     => 'Edit Book',
-			'view_item'     => 'View Book',
-			'all_items'     => 'All Books',
-		),
-		'public'       => true,
-		'has_archive'  => true,
-		'show_in_rest' => true,
-		'supports'     => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
-	);
+    $args = [
+        'labels'       => [
+            'name'          => 'Books',
+            'singular_name' => 'Book',
+            'menu_name'     => 'Books',
+            'add_new'       => 'Add New Book',
+            'add_new_item'  => 'Add New Book',
+            'new_item'      => 'New Book',
+            'edit_item'     => 'Edit Book',
+            'view_item'     => 'View Book',
+            'all_items'     => 'All Books',
+        ],
+        'public'       => true,
+        'has_archive'  => true,
+        'show_in_rest' => true,
+        'rest_base'    => 'books',
+        'supports'     => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
+    ];
 
-	register_post_type( 'book', $args );
+    register_post_type('book', $args);
 }
+
 
 add_action( 'admin_enqueue_scripts', 'bookstore_admin_enqueue_scripts' );
 function bookstore_admin_enqueue_scripts() {
