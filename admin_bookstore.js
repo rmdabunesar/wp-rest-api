@@ -1,3 +1,6 @@
+/**
+ * Using the WordPress REST API
+ */
 // Fatching Book
 function fatchBook() {
     wp.apiFetch({
@@ -82,3 +85,9 @@ const deleteBookButton = document.getElementById("bookstore-delete-book");
 if (deleteBookButton) {
     deleteBookButton.addEventListener("click", deleteBook);
 }
+
+
+
+/**
+ * Extending the WordPress REST API
+ */

@@ -161,19 +161,3 @@ function bookstore_rest_get_isbn( $book ){
 function bookstore_rest_update_isbn( $value, $book ){
     return update_post_meta( $book->ID, 'isbn', $value );
 }
-
-
-/**
- * Extending the WordPress REST API
- */
-add_action('rest_api_init', function () {
-    register_rest_route('myplugin/v1', '/data', [
-        'methods'  => 'GET',
-        'callback' => 'my_api_callback',
-        'permission_callback' => '__return_true',
-    ]);
-});
-
-function my_api_callback(WP_REST_Request $request) {
-    return new WP_REST_Response(['message' => 'Hello!'], 200);
-}
