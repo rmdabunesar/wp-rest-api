@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Using the WordPress REST API
+ */
 add_action( 'init', 'bookstore_register_book_post_type' );
 function bookstore_register_book_post_type() {
     $args = [
@@ -28,10 +31,22 @@ function bookstore_register_book_post_type() {
         'has_archive'  => true,
         'show_in_rest' => true,
         'rest_base'    => 'books',
-        'supports'     => ['title', 'editor', 'author', 'thumbnail', 'excerpt'],
+        'supports'     => ['title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields'],
     ];
 
     register_post_type('book', $args);
+
+    register_meta(
+        'post',
+        'isbn',
+        array(
+            'single'         => true,
+            'type'           => 'string',
+            'default'        => '',
+            'show_in_rest'   => true,
+            'object_subtype' => 'book',
+        )
+    );
 }
 
 add_action( 'admin_enqueue_scripts', 'bookstore_admin_enqueue_scripts' );
@@ -117,4 +132,48 @@ function bookstore_render_booklist() {
         </form>
     </div>
     <?php
+}
+
+
+/**
+ * Extending the WordPress REST API
+ */
+add_action( 'rest_api_init', 'bookstore_add_rest_fields' );
+function bookstore_add_rest_fields() { 
+    register_rest_field(
+        'book',
+        'isbn',
+        array(
+            'get_callback'    => 'bookstore_rest_get_isbn',
+            'update_callback' => 'bookstore_rest_update_isbn',
+            'schema'          => array(
+                'description' => __( 'The ISBN of the book' ),
+                'type'        => 'string',
+            ),
+        )
+    );
+}
+
+function bookstore_rest_get_isbn( $book ){
+    return  get_post_meta( $book['id'], 'isbn', true );
+}
+
+function bookstore_rest_update_isbn( $value, $book ){
+    return update_post_meta( $book->ID, 'isbn', $value );
+}
+
+
+/**
+ * Extending the WordPress REST API
+ */
+add_action('rest_api_init', function () {
+    register_rest_route('myplugin/v1', '/data', [
+        'methods'  => 'GET',
+        'callback' => 'my_api_callback',
+        'permission_callback' => '__return_true',
+    ]);
+});
+
+function my_api_callback(WP_REST_Request $request) {
+    return new WP_REST_Response(['message' => 'Hello!'], 200);
 }
