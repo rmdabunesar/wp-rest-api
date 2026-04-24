@@ -84,7 +84,7 @@ function bookstore_admin_enqueue_scripts() {
     wp_enqueue_script(
         'bookstyle-script',
         plugins_url() . '/bookstore/admin_bookstore.js',
-        array( 'wp-api' ),
+        array( 'wp-api', 'wp-api-fetch' ),
         '1.0.0',
         true
     );
@@ -107,6 +107,7 @@ function bookstore_render_booklist() {
     <div class="wrap" id="bookstore-booklist-admin">
         <h1>Actions</h1>
         <button id="bookstore-load-books">Load Books</button>
+		<button id="bookstore-fetch-books">Fetch Books</button>
         <h2>Books</h2>
         <textarea id="bookstore-booklist" cols="125" rows="15"></textarea>
     </div>
