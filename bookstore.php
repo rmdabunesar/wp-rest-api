@@ -60,11 +60,62 @@ function bookstore_add_booklist_submenu() {
 
 function bookstore_render_booklist() {
     ?>
-    <div class="wrap" id="bookstore-booklist-admin">
+    <div class="fatch-book">
         <h1>Actions</h1>
 		<button id="bookstore-fetch-books">Fetch Books</button>
-        <h2>Books</h2>
-        <textarea id="bookstore-booklist" cols="125" rows="15"></textarea>
+        <h2>Fatch Books</h2>
+        <textarea id="bookstore-booklist" cols="100" rows="15"></textarea>
+    </div>
+
+    <div class="add-book">
+        <h2>Add Book</h2>
+        <form>
+            <div>
+                <label for="bookstore-book-title">Book Title</label>
+                <input type="text" id="bookstore-book-title" placeholder="Title">
+            </div>
+            <div>
+                <label for="bookstore-book-content">Book Content</label>
+                <textarea id="bookstore-book-content" cols="100" rows="10"></textarea>
+            </div>
+            <div>
+                <input type="button" id="bookstore-add-book" value="Add">
+            </div>
+        </form>
+    </div>
+
+    <div class="update-book">
+        <h2>Update Book</h2>
+        <form>
+            <div>
+                <label for="bookstore-update-book-id">Book ID</label>
+                <input type="number" id="bookstore-update-book-id" placeholder="ID">
+            </div>
+            <div>
+                <label for="bookstore-book-new-title">Book Title</label>
+                <input type="text" id="bookstore-book-new-title" placeholder="Title">
+            </div>
+            <div>
+                <label for="bookstore-book-new-content">Book Content</label>
+                <textarea id="bookstore-book-new-content" cols="100" rows="10"></textarea>
+            </div>
+            <div>
+                <input type="button" id="bookstore-update-book" value="Update">
+            </div>
+        </form>
+    </div>
+
+    <div class="update-book">
+        <h2>Delete Book</h2>
+        <form>
+            <div>
+                <label for="bookstore-delete-book-id">Book ID</label>
+                <input type="number" id="bookstore-delete-book-id" placeholder="ID">
+            </div>
+            <div>
+                <input type="button" id="bookstore-delete-book" value="Delete">
+            </div>
+        </form>
     </div>
     <?php
 }
