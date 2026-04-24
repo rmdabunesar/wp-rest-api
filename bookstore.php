@@ -34,7 +34,6 @@ function bookstore_register_book_post_type() {
     register_post_type('book', $args);
 }
 
-
 add_action( 'admin_enqueue_scripts', 'bookstore_admin_enqueue_scripts' );
 function bookstore_admin_enqueue_scripts() {
     wp_enqueue_script(
