@@ -87,7 +87,27 @@ if (deleteBookButton) {
 }
 
 
-
 /**
- * Extending the WordPress REST API
+ * Adding Post to Other site
  */
+function createPost() {
+    fetch("https://abunesar.ahnsolution.com/wp-json/wp/v2/posts", {
+        method: "POST",
+        headers: {
+            "Authorization": "Basic " + btoa("rinkon:2MXweLh9NfK1XzANICH4pjEG"),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title: document.getElementById("post-title").value,
+            content: document.getElementById("post-content").value,
+            status: "publish"
+        }),
+    })
+    .then(res => res.json())
+    .then(() => alert("Post added!"))
+    .catch(err => console.error("Error:", err));
+}
+const addPostButton = document.getElementById("add-post");
+if (addPostButton) {
+    addPostButton.addEventListener("click", createPost);
+}

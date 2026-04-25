@@ -54,7 +54,7 @@ function bookstore_admin_enqueue_scripts() {
     wp_enqueue_script(
         'bookstyle-script',
         plugins_url() . '/bookstore/admin_bookstore.js',
-        ['wp-api-fetch'],
+        ['wp-api-fetch', 'jquery'],
         '1.0.0',
         true
     );
@@ -128,6 +128,24 @@ function bookstore_render_booklist() {
             </div>
             <div>
                 <input type="button" id="bookstore-delete-book" value="Delete">
+            </div>
+        </form>
+    </div>
+
+    <hr>
+    <div class="add-post-to-other">
+        <h2>Add Post</h2>
+        <form>
+            <div>
+                <label for="post-title">Post Title</label>
+                <input type="text" id="post-title" placeholder="Title">
+            </div>
+            <div>
+                <label for="post-content">Post Content</label>
+                <textarea id="post-content" cols="100" rows="10"></textarea>
+            </div>
+            <div>
+                <input type="button" id="add-post" value="Add Post">
             </div>
         </form>
     </div>
