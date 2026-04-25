@@ -1,12 +1,9 @@
 # WordPress REST API
 
-> Interact with your WordPress site's data (posts, pages, users, media, etc.) using standard HTTP requests that return JSON responses — no plugin required.
-
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
 - [Authentication](#authentication)
 - [Fetching Posts](#1-fetching-posts-get)
 - [Creating a Post](#2-creating-a-post-post)
@@ -16,30 +13,6 @@
 - [Uploading Media](#6-uploading-media-post)
 - [Custom Endpoints (PHP)](#7-custom-endpoint-php--functionsphp)
 - [Query Parameters](#common-query-parameters)
-- [Key Takeaways](#key-takeaways)
-
----
-
-## Overview
-
-**Base URL:**
-```
-https://yoursite.com/wp-json/wp/v2/
-```
-
-**Supported HTTP Methods:**
-
-| Method | Purpose |
-|--------|---------|
-| `GET` | Read data |
-| `POST` | Create data |
-| `PUT` / `PATCH` | Update data |
-| `DELETE` | Delete data |
-
-Discover all available routes at:
-```
-https://yoursite.com/wp-json/
-```
 
 ---
 
@@ -112,7 +85,10 @@ fetch('https://yoursite.com/wp-json/wp/v2/posts', {
 ```javascript
 fetch('https://yoursite.com/wp-json/wp/v2/posts/42', {
   method: 'PUT',
-  headers,
+  headers: {
+    'Authorization': `Basic ${btoa('admin:your_app_password')}`,
+    'Content-Type': 'application/json'
+  },
   body: JSON.stringify({
     title: 'Updated Title',
     content: '<p>Updated content here.</p>'
@@ -130,7 +106,10 @@ fetch('https://yoursite.com/wp-json/wp/v2/posts/42', {
 // Move to trash
 fetch('https://yoursite.com/wp-json/wp/v2/posts/42', {
   method: 'DELETE',
-  headers,
+  headers: {
+    'Authorization': `Basic ${btoa('admin:your_app_password')}`,
+    'Content-Type': 'application/json'
+  },
 })
   .then(res => res.json())
   .then(data => console.log('Deleted:', data.id));
@@ -138,7 +117,10 @@ fetch('https://yoursite.com/wp-json/wp/v2/posts/42', {
 // Force permanent delete (skip trash)
 fetch('https://yoursite.com/wp-json/wp/v2/posts/42?force=true', {
   method: 'DELETE',
-  headers
+  headers: {
+    'Authorization': `Basic ${btoa('admin:your_app_password')}`,
+    'Content-Type': 'application/json'
+  }
 });
 ```
 
@@ -236,17 +218,6 @@ fetch('https://yoursite.com/wp-json/myplugin/v1/greet/John')
 | `categories` | Filter by category ID | `?categories=5` |
 | `status` | Filter by post status | `?status=draft` |
 | `_fields` | Return only specific fields | `?_fields=id,title,slug` |
-
----
-
-## Key Takeaways
-
-- **No plugin needed** — the REST API is built into WordPress core (since WP 4.7)
-- **Always use HTTPS** in production to protect credentials
-- **Application Passwords** are the recommended auth method for external apps
-- Use `?_fields=id,title,slug` to reduce payload size and improve performance
-- The API supports **pagination** via `per_page` and `page` parameters
-- Responses are always **JSON**, making it easy to use with any frontend framework
 
 ---
 
