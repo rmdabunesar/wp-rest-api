@@ -1,10 +1,13 @@
 <?php
 /**
  * Plugin Name: Bookstore
+ * Plugin URI: https://github.com/rmdabunesar/bookstore
  * Description: A plugin to manage books
- * Version: 1.0
- *
+ * Version: 1.0.0
+ * Author: Abu Nesar
+ * Author URI: https://github.com/rmdabunesar
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -54,7 +57,7 @@ function bookstore_admin_enqueue_scripts() {
     wp_enqueue_script(
         'bookstyle-script',
         plugins_url() . '/bookstore/admin_bookstore.js',
-        ['wp-api-fetch', 'jquery'],
+        ['wp-api-fetch'],
         '1.0.0',
         true
     );
@@ -64,10 +67,10 @@ add_action( 'admin_menu', 'bookstore_add_booklist_submenu', 11 );
 function bookstore_add_booklist_submenu() {
     add_submenu_page(
         'edit.php?post_type=book',
-        'Book List',
-        'Book List',
+        'REST API',
+        'REST API',
         'edit_posts',
-        'book-list',
+        'rest-api',
         'bookstore_render_booklist'
     );
 }
@@ -135,6 +138,7 @@ function bookstore_render_booklist() {
     <hr>
     <div class="add-post-to-other">
         <h2>Add Post</h2>
+        <span>endpoint: https://abunesar.ahnsolution.com/wp-json/wp/v2/posts</span>
         <form>
             <div>
                 <label for="post-title">Post Title</label>

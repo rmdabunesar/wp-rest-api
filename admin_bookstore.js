@@ -88,7 +88,7 @@ if (deleteBookButton) {
 
 
 /**
- * Adding Post to Other site
+ * Adding Post to Other Website
  */
 function createPost() {
     fetch("https://abunesar.ahnsolution.com/wp-json/wp/v2/posts", {
